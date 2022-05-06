@@ -32,7 +32,7 @@ class SignInViewController: UIViewController {
                 } else {
                     
                     // Sign In user
-                    self.performSegue(withIdentifier: "signInToChats", sender: self)
+                    self.performSegue(withIdentifier: K.loginToChats, sender: self)
                 }
             }
             
@@ -40,8 +40,5 @@ class SignInViewController: UIViewController {
         
     }
    
-    @IBAction func signUpButton(_ sender: UIButton) {
-        performSegue(withIdentifier: "signInToSignUp", sender: self)
-    }
     
 }

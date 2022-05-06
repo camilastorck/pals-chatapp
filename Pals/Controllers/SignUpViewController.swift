@@ -28,15 +28,22 @@ class SignUpViewController: UIViewController {
     @IBAction func signUpButton(_ sender: UIButton) {
         
         if let email = emailLabel.text,
-           let password = passwordLabel.text {
+           let password = passwordLabel.text,
+           let passwordValidation = confirmPasswordLabel.text {
             
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
               
                 if let e = error {
                     self.errorLabel.text = e.localizedDescription
+                    return
                 } else {
                     // Register user and navigate to the Chat's view
-                    self.performSegue(withIdentifier: "signUpToChats", sender: self)
+                    if password == passwordValidation {
+                        self.performSegue(withIdentifier: K.registerToChats, sender: self)
+                    } else {
+                        self.errorLabel.text = "Tu contraseña debe ser igual."
+                    }
+                    
                 }
                 
             }
@@ -45,7 +52,4 @@ class SignUpViewController: UIViewController {
         
     }
     
-    @IBAction func signInButton(_ sender: UIButton) {
-        performSegue(withIdentifier: "signUpToSignIn", sender: self)
-    }
 }

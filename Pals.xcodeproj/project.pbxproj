@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		183B7AB42825B78900B7A70A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B7AB32825B78900B7A70A /* Constants.swift */; };
 		1848035228245D560054BB64 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1848035128245D560054BB64 /* WelcomeViewController.swift */; };
 		1848035428245D720054BB64 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1848035328245D720054BB64 /* SignUpViewController.swift */; };
 		1848035628245D7F0054BB64 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1848035528245D7F0054BB64 /* SignInViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		183B7AB32825B78900B7A70A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1848035128245D560054BB64 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		1848035328245D720054BB64 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1848035528245D7F0054BB64 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		1848034E28245BD50054BB64 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				183B7AB32825B78900B7A70A /* Constants.swift */,
 				186396DF281F356800E650AA /* Assets.xcassets */,
 				186396D6281F356300E650AA /* AppDelegate.swift */,
 				186396D8281F356300E650AA /* SceneDelegate.swift */,
@@ -253,6 +256,7 @@
 				1848035428245D720054BB64 /* SignUpViewController.swift in Sources */,
 				1848035628245D7F0054BB64 /* SignInViewController.swift in Sources */,
 				186396D9281F356300E650AA /* SceneDelegate.swift in Sources */,
+				183B7AB42825B78900B7A70A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
