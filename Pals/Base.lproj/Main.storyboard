@@ -125,7 +125,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ygm-Sk-zdV">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="a@m.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ygm-Sk-zdV">
                                 <rect key="frame" x="57" y="420.5" width="300" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="7o7-yo-5kW"/>
@@ -134,7 +134,7 @@
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0R2-7B-Ye3">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0R2-7B-Ye3">
                                 <rect key="frame" x="57" y="500.5" width="300" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="S5W-V0-BvY"/>
@@ -358,7 +358,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Buscar chats" showsSearchResultsButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AFb-1W-SK8">
-                                <rect key="frame" x="20" y="140" width="374" height="50"/>
+                                <rect key="frame" x="10" y="140" width="394" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="iuo-oV-Q7q"/>
                                 </constraints>
@@ -371,20 +371,10 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nyL-cA-Feh">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nyL-cA-Feh">
                                 <rect key="frame" x="20" y="200" width="374" height="601"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="CNr-mJ-uce">
-                                        <rect key="frame" x="0.0" y="44.5" width="374" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CNr-mJ-uce" id="7IF-L8-mHw">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J8g-E9-NKR">
                                 <rect key="frame" x="20" y="806" width="374" height="50"/>
@@ -409,6 +399,9 @@
                                         <buttonConfiguration key="configuration" style="plain" cornerStyle="dynamic">
                                             <backgroundConfiguration key="background" cornerRadius="20" image="arrow.uturn.right.circle.fill" catalog="system"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="sendNewMessage:" destination="x7x-Bn-aq3" eventType="touchUpInside" id="NWl-WO-6aW"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -429,7 +422,7 @@
                         <color key="tintColor" red="0.68559712169999998" green="0.67755162719999995" blue="0.9567415118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="AFb-1W-SK8" firstAttribute="top" secondItem="hnr-5e-A8j" secondAttribute="top" id="3ZN-ez-n71"/>
-                            <constraint firstItem="AFb-1W-SK8" firstAttribute="leading" secondItem="hnr-5e-A8j" secondAttribute="leading" constant="20" id="3d6-gf-Wel"/>
+                            <constraint firstItem="AFb-1W-SK8" firstAttribute="leading" secondItem="hnr-5e-A8j" secondAttribute="leading" constant="10" id="3d6-gf-Wel"/>
                             <constraint firstItem="nyL-cA-Feh" firstAttribute="top" secondItem="AFb-1W-SK8" secondAttribute="bottom" constant="10" id="6c4-DN-DTc"/>
                             <constraint firstItem="nyL-cA-Feh" firstAttribute="leading" secondItem="hnr-5e-A8j" secondAttribute="leading" constant="20" id="C9A-Zv-yIZ"/>
                             <constraint firstAttribute="bottom" secondItem="J8g-E9-NKR" secondAttribute="bottom" constant="40" id="dgF-Jk-fna"/>
@@ -437,13 +430,15 @@
                             <constraint firstItem="J8g-E9-NKR" firstAttribute="leading" secondItem="hnr-5e-A8j" secondAttribute="leading" constant="20" id="pmH-8x-Hn1"/>
                             <constraint firstItem="hnr-5e-A8j" firstAttribute="trailing" secondItem="J8g-E9-NKR" secondAttribute="trailing" constant="20" id="qfC-26-Hdc"/>
                             <constraint firstItem="hnr-5e-A8j" firstAttribute="trailing" secondItem="nyL-cA-Feh" secondAttribute="trailing" constant="20" id="vPY-cQ-0Kh"/>
-                            <constraint firstItem="hnr-5e-A8j" firstAttribute="trailing" secondItem="AFb-1W-SK8" secondAttribute="trailing" constant="20" id="zTs-P9-D7O"/>
+                            <constraint firstItem="hnr-5e-A8j" firstAttribute="trailing" secondItem="AFb-1W-SK8" secondAttribute="trailing" constant="10" id="zTs-P9-D7O"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Chats" largeTitleDisplayMode="always" id="nHR-es-630"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="newMessageField" destination="EBd-D2-5z9" id="et1-gD-gym"/>
+                        <outlet property="tableView" destination="nyL-cA-Feh" id="3bw-MG-nNg"/>
                         <segue destination="xk7-hm-vbW" kind="show" identifier="chatListToChat" id="uIc-kr-5s5"/>
                     </connections>
                 </viewController>
