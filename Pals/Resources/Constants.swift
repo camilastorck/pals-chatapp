@@ -9,11 +9,18 @@ import Foundation
 
 struct K {
     
-    static let registerToChats = "signUpToChats"
-    static let loginToChats = "signInToChats"
-    static let listToSingleChat = "chatListToChat"
-    static let cellId = "cell"
-    static let nibName = "MessageCell"
+    struct Segues {
+        static let registerToChats = "signUpToChats"
+        static let loginToChats = "signInToChats"
+        static let listToSingleChat = "chatListToChat"
+    }
+    
+    struct Tables {
+        static let cellId = "cell"
+        static let chatCellId = "chatCell"
+        static let cellNibName = "MessageCell"
+        static let chatNibName = "ChatCell"
+    }
     
     struct Firestore {
         static let collectionName = "messages"

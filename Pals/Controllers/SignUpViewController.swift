@@ -14,10 +14,12 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordLabel: UITextField!
     @IBOutlet weak var confirmPasswordLabel: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var registerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        registerButton.layer.cornerRadius = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +41,7 @@ class SignUpViewController: UIViewController {
                 } else {
                     // Register user and navigate to the Chat's view
                     if password == passwordValidation {
-                        self.performSegue(withIdentifier: K.registerToChats, sender: self)
+                        self.performSegue(withIdentifier: K.Segues.registerToChats, sender: self)
                     } else {
                         self.errorLabel.text = "Tu contraseña debe ser igual."
                     }

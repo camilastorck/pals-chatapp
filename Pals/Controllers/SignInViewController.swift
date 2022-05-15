@@ -13,11 +13,12 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var emailLabel: UITextField!
     @IBOutlet weak var passwordLabel: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        loginButton.layer.cornerRadius = 10
     }
     
     @IBAction func signInButton(_ sender: UIButton) {
@@ -32,7 +33,7 @@ class SignInViewController: UIViewController {
                 } else {
                     
                     // Sign In user
-                    self.performSegue(withIdentifier: K.loginToChats, sender: self)
+                    self.performSegue(withIdentifier: K.Segues.loginToChats, sender: self)
                 }
             }
             
