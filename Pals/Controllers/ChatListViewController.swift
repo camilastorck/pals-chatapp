@@ -9,22 +9,20 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChatListViewController: UIViewController {
     
     let db = Firestore.firestore()
     var contactName: String?
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newMessageField: UITextField!
     
-    var messages: [Message] = []
+    var messages: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBar.prefersLargeTitles = false
         title = contactName
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(UINib(nibName: K.Tables.cellNibName, bundle: nil), forCellReuseIdentifier: K.Tables.cellId)
         loadMessages()
         
@@ -32,46 +30,51 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func loadMessages() {
         
-        db.collection(K.Firestore.collectionName).addSnapshotListener { querySnapshot, error in
-            guard error == nil else { return }
+        guard let contactReference = contactName else { return }
+        
+        db.collection(K.Firestore.collectionName).document(contactReference).addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else { return }
+            guard let data = document.data() else { return }
             
             self.messages = []
             
-            if let snapshotDoc = querySnapshot?.documents {
-                for doc in snapshotDoc {
-                    let data = doc.data()
-                    if let messageSender = data[K.Firestore.senderField] as? String, let messageBody = data[K.Firestore.bodyField] as? String {
-                        
-                        let newMsg = Message(sender: messageSender, content: messageBody)
-                        
-                        DispatchQueue.main.async {
-                            self.messages.append(newMsg)
-                            self.tableView.reloadData()
-                        }
-                    }
+            if let messages = data[K.Firestore.messagesField] as? [String] {
+                print(messages)
+                DispatchQueue.main.async {
+                    self.messages.append(contentsOf: messages)
+                    self.tableView.reloadData()
                 }
             }
+              
         }
     }
     
     @IBAction func sendNewMessage(_ sender: UIButton) {
-        if let messageBody = newMessageField.text, let messageSender = Auth.auth().currentUser?.email {
-            db.collection(K.Firestore.collectionName).addDocument(data: [
-                K.Firestore.senderField : messageSender,
-                K.Firestore.bodyField : messageBody
-            ]) { error in
-                if let e = error {
-                    print("Error saving data to Firestore: \(e)")
+        
+        guard let contactReference = contactName else { return }
+        let contactRef = db.collection(K.Firestore.collectionName).document(contactReference)
+        
+        if let message = newMessageField.text {
+            contactRef.updateData([
+                K.Firestore.messagesField : FieldValue.arrayUnion([message])
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
                 } else {
-                    print("Succesfully saved data.")
+                    print("Document successfully updated")
                 }
             }
         }
+        
+        newMessageField.text = ""
     }
+}
+
+extension ChatListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Tables.cellId, for: indexPath) as! MessageCell
-        cell.messageLabel.text = messages[indexPath.row].content
+        cell.messageLabel.text = messages[indexPath.row]
         return cell
     }
     
@@ -83,5 +86,3 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-

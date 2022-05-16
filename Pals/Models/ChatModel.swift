@@ -8,21 +8,16 @@
 import Foundation
 
 struct Chat {
-    let receptor: Contact
-    let messages: [Message]
+    let id: String
+    let receptor: String
+    let messages: [String]
     
-    init(receptor: Contact, messages: [Message]) {
+    init(id: String, receptor: String, messages: [String]) {
+        self.id = id
         self.receptor = receptor
         self.messages = messages
     }
 }
 
-struct Contact {
-    let name: String
-}
 
-struct Message {
-    
-    let sender: String
-    let content: String
-}
+
