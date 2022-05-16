@@ -11,32 +11,23 @@ import FirebaseFirestore
 
 class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var observer: NSObjectProtocol?
-    
     let db = Firestore.firestore()
+    var contactName: String?
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newMessageField: UITextField!
-    @IBOutlet weak var contactNameLabel: UILabel!
     
-    var messages: [Message] = [Message(sender: "Camila", content: "Hola, como estás?")]
+    var messages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = false
+        title = contactName
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: K.Tables.cellNibName, bundle: nil), forCellReuseIdentifier: K.Tables.cellId)
-        
-        observer = NotificationCenter.default.addObserver(forName: NSNotification.Name("Chat"), object: nil, queue: .main, using: { notification in
-            guard let object = notification.object as? Chat else { return }
-            
-            self.contactNameLabel.text = object.receptor.name
-        })
-        
-        let rightBarButton = UIBarButtonItem(title: "Cerrar Sesión", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.myRightSideBarButtonItemTapped(_:)))
-        self.navigationItem.rightBarButtonItem = rightBarButton
-        
         loadMessages()
+        
     }
     
     func loadMessages() {
@@ -76,18 +67,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
             }
         }
-    }
-    
-    @objc func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
-        
-        let firebaseAuth = Auth.auth()
-        do {
-          try firebaseAuth.signOut()
-            navigationController?.popToRootViewController(animated: true)
-        } catch let signOutError as NSError {
-          print("Error signing out: %@", signOutError)
-        }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

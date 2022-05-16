@@ -48,25 +48,14 @@
                                         <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <color key="highlightedColor" systemColor="secondaryLabelColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hoy" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-4u-Rqq">
-                                        <rect key="frame" x="263" y="10" width="22" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="enG-Ux-kc3"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
-                                        <color key="textColor" systemColor="secondaryLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="XkC-gG-8Hu" firstAttribute="leading" secondItem="gEh-fT-UKE" secondAttribute="leading" constant="5" id="0aD-LA-rYu"/>
                                     <constraint firstAttribute="bottom" secondItem="XkC-gG-8Hu" secondAttribute="bottom" constant="3" id="JSO-GB-shJ"/>
                                     <constraint firstItem="MKu-xs-Gna" firstAttribute="leading" secondItem="gEh-fT-UKE" secondAttribute="leading" constant="5" id="KWh-SI-ziq"/>
-                                    <constraint firstItem="5Uc-4u-Rqq" firstAttribute="top" secondItem="gEh-fT-UKE" secondAttribute="top" constant="10" id="Szc-Zr-l3y"/>
                                     <constraint firstItem="MKu-xs-Gna" firstAttribute="top" secondItem="gEh-fT-UKE" secondAttribute="top" constant="5" id="fKA-YJ-KtP"/>
                                     <constraint firstItem="XkC-gG-8Hu" firstAttribute="top" secondItem="MKu-xs-Gna" secondAttribute="bottom" constant="5" id="kSD-l7-642"/>
-                                    <constraint firstAttribute="trailing" secondItem="5Uc-4u-Rqq" secondAttribute="trailing" constant="5" id="nsD-03-f5f"/>
                                     <constraint firstAttribute="trailing" secondItem="XkC-gG-8Hu" secondAttribute="trailing" constant="5" id="p3Z-qn-dPE"/>
                                 </constraints>
                             </view>
@@ -91,12 +80,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="dateLabel" destination="5Uc-4u-Rqq" id="tRj-Bu-d1x"/>
                 <outlet property="lastMessageLabel" destination="XkC-gG-8Hu" id="oyJ-5n-pGY"/>
                 <outlet property="userImage" destination="WKD-In-dff" id="WM2-yd-2Db"/>
                 <outlet property="username" destination="MKu-xs-Gna" id="8ar-9M-Q7M"/>
             </connections>
-            <point key="canvasLocation" x="-52.173913043478265" y="105.13392857142857"/>
+            <point key="canvasLocation" x="-204.34782608695653" y="103.79464285714285"/>
         </tableViewCell>
     </objects>
     <resources>
