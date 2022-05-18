@@ -75,8 +75,6 @@
 				187E930828330006004C15FB /* message.json */,
 				187E930A28330302004C15FB /* welcome.json */,
 				183B7AB32825B78900B7A70A /* Constants.swift */,
-				186396D6281F356300E650AA /* AppDelegate.swift */,
-				186396D8281F356300E650AA /* SceneDelegate.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -84,8 +82,8 @@
 		1848034F28245C030054BB64 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				18688E7B282AF20200704287 /* MessageCell.swift */,
 				18688E7F282BF45900704287 /* ChatCell.swift */,
+				18688E7B282AF20200704287 /* MessageCell.swift */,
 				186396E1281F356900E650AA /* LaunchScreen.storyboard */,
 				18688E7C282AF20200704287 /* MessageCell.xib */,
 				18688E80282BF45900704287 /* ChatCell.xib */,
@@ -127,6 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				186396DC281F356300E650AA /* Main.storyboard */,
+				186396D6281F356300E650AA /* AppDelegate.swift */,
+				186396D8281F356300E650AA /* SceneDelegate.swift */,
 				18688E78282AEA8000704287 /* Models */,
 				1848034E28245BD50054BB64 /* Resources */,
 				1848035028245C300054BB64 /* Controllers */,

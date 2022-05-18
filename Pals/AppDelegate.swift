@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Use Firebase library to configure APIs
+        UINavigationBar.appearance().tintColor = UIColor(red: 0.72, green: 0.62, blue: 0.90, alpha: 1.00)
         FirebaseApp.configure()
         let _ = Firestore.firestore()
         return true

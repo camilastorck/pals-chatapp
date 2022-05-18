@@ -11,21 +11,45 @@ import FirebaseFirestore
 
 class ChatListViewController: UIViewController {
     
-    let db = Firestore.firestore()
-    var contactName: String?
+    // MARK: - Outlets
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var newMessageField: UITextField!
     
+    let db = Firestore.firestore()
+    var contactName: String?
     var messages: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
         navigationController?.navigationBar.prefersLargeTitles = false
         title = contactName
         tableView.register(UINib(nibName: K.Tables.cellNibName, bundle: nil), forCellReuseIdentifier: K.Tables.cellId)
         loadMessages()
         
+    }
+    
+    @IBAction func sendNewMessage(_ sender: UIButton) {
+        
+        guard let contactReference = contactName else { return }
+        let contactRef = db.collection(K.Firestore.collectionName).document(contactReference)
+        
+        if let message = newMessageField.text {
+            contactRef.updateData([
+                K.Firestore.messagesField : FieldValue.arrayUnion([message])
+            ]) { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
+        
+        newMessageField.text = ""
     }
     
     func loadMessages() {
@@ -49,14 +73,14 @@ class ChatListViewController: UIViewController {
         }
     }
     
-    @IBAction func sendNewMessage(_ sender: UIButton) {
+    private func deleteMessage(indexPath: IndexPath) -> UIContextualAction {
         
-        guard let contactReference = contactName else { return }
-        let contactRef = db.collection(K.Firestore.collectionName).document(contactReference)
+        let chatRef = db.collection(K.Firestore.collectionName).document(contactName ?? "")
         
-        if let message = newMessageField.text {
-            contactRef.updateData([
-                K.Firestore.messagesField : FieldValue.arrayUnion([message])
+        let action = UIContextualAction(style: .destructive, title: "Borrar") { [ weak self ] _, _, _ in
+            
+            chatRef.updateData([
+                K.Firestore.messagesField : FieldValue.delete(),
             ]) { err in
                 if let err = err {
                     print("Error updating document: \(err)")
@@ -64,9 +88,11 @@ class ChatListViewController: UIViewController {
                     print("Document successfully updated")
                 }
             }
+            self?.messages.remove(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .fade)
+            self?.tableView.reloadData()
         }
-        
-        newMessageField.text = ""
+        return action
     }
 }
 
@@ -84,5 +110,14 @@ extension ChatListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let swipe = UISwipeActionsConfiguration(actions: [deleteMessage(indexPath: indexPath)])
+        return swipe
     }
 }

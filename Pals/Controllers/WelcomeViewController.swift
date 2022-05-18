@@ -2,7 +2,7 @@
 //  WelcomeViewController.swift
 //  Pals
 //
-//  Created by Apple  on 05/05/2022.
+//  Created by Apple on 05/05/2022.
 //
 
 import UIKit
@@ -17,14 +17,17 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         animation = .init(name: "welcome")
-        animation?.frame = view.bounds
         animation?.loopMode = .loop
+        animation?.frame = CGRect(x: 10, y: 60, width: 370, height: 370)
         view.addSubview(animation!)
-        animation?.play()
         loginBtn.layer.cornerRadius = 10
         registerBtn.layer.cornerRadius = 10
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        animation?.play()
     }
     
 }

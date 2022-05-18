@@ -13,6 +13,8 @@ import FirebaseFirestore
 
 class ChatGroupsViewController: UIViewController, CNContactPickerDelegate {
 
+    // MARK: - Outlets
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addChatBtn: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -25,13 +27,43 @@ class ChatGroupsViewController: UIViewController, CNContactPickerDelegate {
         super.viewDidLoad()
         navigationItem.hidesBackButton = true
         
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.register(UINib(nibName: K.Tables.chatNibName, bundle: nil), forCellReuseIdentifier: K.Tables.chatCellId)
         
-        let rightBarButton = UIBarButtonItem(title: "Cerrar Sesión", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.myRightSideBarButtonItemTapped(_:)))
+        let rightBarButton = UIBarButtonItem(title: "Cerrar Sesión", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.signOutButton(_:)))
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         addChatBtn.layer.cornerRadius = 30
         loadChats()
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func addNewChat(_ sender: Any) {
+        let vc = CNContactPickerViewController()
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
+    // Create new chat from contacts.
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        
+        let name = contact.givenName + " " + contact.familyName
+        let contactRef = db.collection(K.Firestore.collectionName).document(name)
+        
+        contactRef.setData([
+            K.Firestore.receptorField : name,
+            K.Firestore.messagesField : []
+        ]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+        tableView.reloadData()
     }
     
     func loadChats() {
@@ -61,32 +93,7 @@ class ChatGroupsViewController: UIViewController, CNContactPickerDelegate {
         
     }
     
-    @IBAction func addNewChat(_ sender: Any) {
-        let vc = CNContactPickerViewController()
-        vc.delegate = self
-        present(vc, animated: true)
-    }
-    
-    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-        
-        let name = contact.givenName + " " + contact.familyName
-        let contactRef = db.collection(K.Firestore.collectionName).document(name)
-        print(contactRef)
-        
-        contactRef.setData([
-            K.Firestore.receptorField : name,
-            K.Firestore.messagesField : []
-        ]) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
-        tableView.reloadData()
-    }
-    
-    @objc func myRightSideBarButtonItemTapped(_ sender:UIBarButtonItem!) {
+    @objc func signOutButton(_ sender:UIBarButtonItem!) {
         
         let firebaseAuth = Auth.auth()
         do {
@@ -105,13 +112,12 @@ class ChatGroupsViewController: UIViewController, CNContactPickerDelegate {
         }
     }
     
-    private func delete(indexPath: IndexPath) -> UIContextualAction {
+    private func deleteChat(indexPath: IndexPath) -> UIContextualAction {
         
         let chatName = chats[indexPath.row].receptor
         let chatRef = db.collection(K.Firestore.collectionName).document(chatName)
         
         let action = UIContextualAction(style: .destructive, title: "Borrar") { [ weak self ] _, _, _ in
-            self?.chats.remove(at: indexPath.row)
             
             chatRef.delete() { err in
                 if let err = err {
@@ -120,7 +126,7 @@ class ChatGroupsViewController: UIViewController, CNContactPickerDelegate {
                     print("Document successfully removed!")
                 }
             }
-            
+            self?.chats.remove(at: indexPath.row)
             self?.tableView.deleteRows(at: [indexPath], with: .fade)
             self?.tableView.reloadData()
         }
@@ -129,7 +135,7 @@ class ChatGroupsViewController: UIViewController, CNContactPickerDelegate {
     
 }
 
-extension ChatGroupsViewController: UITableViewDelegate, UITableViewDataSource {
+extension ChatGroupsViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -147,7 +153,7 @@ extension ChatGroupsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let swipe = UISwipeActionsConfiguration(actions: [delete(indexPath: indexPath)])
+        let swipe = UISwipeActionsConfiguration(actions: [deleteChat(indexPath: indexPath)])
         return swipe
     }
     
@@ -157,5 +163,9 @@ extension ChatGroupsViewController: UITableViewDelegate, UITableViewDataSource {
         let currentContact = chats[indexPath.row].receptor
         contactNameDestination = currentContact
         performSegue(withIdentifier: K.Segues.listToSingleChat, sender: self)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
 }
